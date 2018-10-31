@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+        function validateForm() {
+          var x = document.forms["login"]["user"].value;
+          if (x == "") {
+            alert("");
+            document.getElementById("p").innerHTML = x;
+            return false;
+          }
+        }
+    </script>
+  </head>
+  <body>
+    <p id="p"></p>
+    <form name="login" action="src/landingPage.html" onsubmit="return validateForm()" method="post" >
+        Username: <input type="text" name="user">
+        <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
