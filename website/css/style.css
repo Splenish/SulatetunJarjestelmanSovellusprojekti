@@ -1,0 +1,66 @@
+.slideshowDiv {
+	float: left;
+	display: block;
+	width: 100%;
+	height: 10%;
+}
+
+.slideshowDiv img {
+	width: inherit;
+	height: inherit;
+}
+
+.slideshowDivButtonLeft {
+	position: absolute;
+	top: 50%;
+	left: 0%;
+}
+
+.slideshowDivButtonLeft:hover {
+
+}
+
+.slideshowDivButtonRight {
+	position: absolute;
+	top: 50%;
+ 	right: 0%;
+}
+
+.slideshowDivButtonRight:hover {
+
+}
+
+.slides {
+	display: none;
+}
+
+.header {
+	overflow: hidden;
+	top: 0px;
+	left: 0px;
+	background-color: Gray;
+	box-shadow: 0px 3px 4px Black;
+	float: left;
+	width: 100%;
+	height: 10%;
+}
+
+.header .left {
+	padding-left: 1%;
+	float: left;
+	width: 300px;
+}
+
+.header .right {
+	display: flex;
+	height: 81.5px;
+	float: right;
+	align-items: center;
+	margin-right: 5%;
+}
+
+.header .right a {
+	color: white;
+	padding-left: 1em;
+	padding-right: 1em;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vehicle Tracker</title>
+    <script src="../js/login.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="left">
+        <h3>Vehicle Tracker</h3>
+        <p>Keeps you on the road</p>
+      </div>
+      <div class="right">
+        <a href="#">Info</a>
+        <a href="#">Login</a>
+      </div>
+    </div>
+    <div class="slideshowDiv">
+       <img class="slides" src="../images/front_1.png" alt="front_1.png">
+       <img class="slides" src="../images/front_2.png" alt="front_2.png">
+       <button class="slideshowDivButtonLeft"  name="previousImage" onclick="nextSlide(-1)">&#10094</button>
+       <button class="slideshowDivButtonRight" name="nextImage" onclick="nextSlide(1)">&#10095</button>
+    </div>
+    <script src="../js/slideshow.js" type="text/javascript"></script>
+  </body>
+</html>
