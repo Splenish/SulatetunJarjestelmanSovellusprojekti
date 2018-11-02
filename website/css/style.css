@@ -1,56 +1,18 @@
-.slideshowDiv {
-	background-color: black;
-	box-shadow: 5px 5px;
-	float: left;
-	display: block;
-	width: 100%;
-	height: 10%;
-}
-
-.slideshowDiv img {
-	margin-left: auto;
-	margin-right: auto;
-	width: 80%;
-	height: inherit;
-}
-
-.slideshowDivButtonLeft {
-	position: absolute;
-	top: 50%;
-	left: 0%;
-}
-
-.slideshowDivButtonLeft:hover {
-
-}
-
-.slideshowDivButtonRight {
-	position: absolute;
-	top: 50%;
- 	right: 0%;
-}
-
-.slideshowDivButtonRight:hover {
-
-}
-
-.slides {
-	display: none;
-}
-
 .header {
+	position: relative;
 	overflow: hidden;
 	top: 0px;
 	left: 0px;
 	background-color: Gray;
-	box-shadow: 0px 3px 4px Black;
+	border-bottom: 1px solid Black;
+	border-top: 1px solid Black;
 	float: left;
 	width: 100%;
 	height: 10%;
 }
 
 .header .left {
-	padding-left: 1%;
+	padding-left: 2%;
 	float: left;
 	width: 300px;
 }
@@ -67,4 +29,59 @@
 	color: white;
 	padding-left: 1em;
 	padding-right: 1em;
+}
+
+.slideshowDiv {
+	clear: both;
+	position: relative;
+	background-color: black;
+	border-bottom: 1px solid Black;
+	width: 100%;
+	height: auto;
+}
+
+.slideshowDiv img {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: inherit;
+}
+
+.slides {
+	display: none;
+}
+
+.active {
+  background-color: #717171 !important;
+}
+
+.dots {
+	left: 50%;
+	position: absolute;
+	bottom: 0;
+}
+
+.dot {
+	cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.content {
+	margin-top: 2%;
+	text-align: center;
+	margin-bottom: 5%;
+}
+
+.footer {
+	border-top: 1px solid Black;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	height: 5%;
 }
