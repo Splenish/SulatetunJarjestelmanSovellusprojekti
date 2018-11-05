@@ -1,9 +1,9 @@
-function validateLogin() {
-  var user = document.forms["login"]["username"].value;
-  var pass = document.forms["login"]["password"].value;
-  if (user == "" || pass == "") {
-    alert("Username and Password field must both be filled!");
-    return false;
-  }
-  //Validate user and pass
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+   if (event.target == modal) {
+       modal.style.display = "none";
+   }
 }
