@@ -21,25 +21,23 @@
         </div>
       </div>
 
-      <!-- The Modal -->
       <div id="id01" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'"
-      class="close" title="Close Modal">&times;</span>
-        <!-- Modal Content -->
-        <form class="modal-content animate" action="/action_page.php">
-          <div class="container"><center>
-            <label><i>Insert your login information down below</i></label  ><br>
-            <label for="uname"><b>Username</b></label><br>
-            <input type="text" placeholder="Enter Username" name="uname" required><br>
-            <label for="psw"><b>Password</b></label><br>
-            <input type="password" placeholder="Enter Password" name="psw" required><br><br>
-            <button type="submit"class="btn btn-primary">Login</button>
-            <br><br>
-          </div>
-          <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-info">Cancel</button><br> <br>
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <form class="modal-content animate" action="/validateLogin" method="POST">
+          <center>
+            <div class="container">
+              <label><i>Insert your login information down below</i></label  ><br>
+              <label for="uname"><b>Username</b></label><br>
+              <input type="text" placeholder="Enter Username" name="uname" required><br>
+              <label for="psw"><b>Password</b></label><br>
+              <input type="password" placeholder="Enter Password" name="psw" required><br><br>
+              <button type="submit"class="btn btn-primary">Login</button>
+              <br><br>
+            </div>
+            <div class="container" style="background-color:#f1f1f1">
+              <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-info">Cancel</button><br> <br>
+            </div>
           </center>
-          </div>
         </form>
       </div>
       <div class="slideshow">
