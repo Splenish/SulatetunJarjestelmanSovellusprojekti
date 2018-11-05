@@ -1,0 +1,23 @@
+create table client(
+client_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+company_name VARCHAR(50) UNIQUE NOT NULL,
+first_name VARCHAR(50),
+last_name VARCHAR(50),
+telephone VARCHAR(50)
+);
+
+create table account(
+account_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+client_id INT NOT NULL,
+user_name VARCHAR(20) UNIQUE NOT NULL,
+password VARCHAR(20) NOT NULL,
+foreign key(client_id) references client(client_id) on delete cascade on update cascade
+);
+
+create table device(
+device_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+account_id INT NOT NULL,
+latitude FLOAT,
+longitude FLOAT,
+foreign key(account_id) references account(account_id) on delete cascade on update cascade
+);
