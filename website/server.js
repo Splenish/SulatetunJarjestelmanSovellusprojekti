@@ -26,15 +26,23 @@ function query(func) {
 			throw err;
 		}
 		console.log('MySQL Connected!');
-		return func();
+		return func(db);
 	});
 }
 
 app.post('/validateLogin', (req, res) => {
 	console.log("Trying to login with " + req.body.uname + req.body.psw);
-
-	res.cookie('un', req.body.uname);
-	res.cookie('pw', req.body.psw);
+	var queryResult = query( (db) => {
+		db.query("SELECT * FROM account", function(err, result, fields) {
+			if (err) {
+				throw err;
+			} else {
+				result = fields;
+				return result;
+			}
+		});
+	});
+	console.log("Query Result: " + queryResult);
 	res.end();
 });
 
