@@ -32,9 +32,9 @@ app.use(session({secret: 'SepsisMies123'}));
 //Setup database and connect to it
 var db = mysql.createConnection({
 	host: "localhost",
-	user: "dbuser",
-	password: "Sepsis123Database",
-	database: "AjoneuvonSeuranta"
+	user: "root",
+	password: "paskaHousu1",
+	database: "ajoneuvonseuranta"
 });
 
 /*
@@ -76,15 +76,21 @@ app.get('/logout', function(req, res) {
 
 app.post('/validateLogin', function(req, res) {
 	console.log("Trying to login with " + req.body.uname + " " + req.body.psw);
-	if (req.body.uname == "user" && req.body.psw == "pass") {
-		console.log("Valid user pass!");
-		req.session.account_id = 1;
-		res.redirect('/profile');
-	}
-	else {
-		console.log("Invalid user pass!");
-		res.redirect('/');
-	}
+	var uname = req.body.uname;
+	var psw = req.body.psw;
+	var sql = "SELECT account_id FROM account WHERE user_name = ? AND password = ?";
+	db.query(sql, [uname, psw], function(err, result) {
+		if (err) throw err;
+		if (result.length > 0) {
+			console.log("Valid user pass!");
+			req.session.account_id = result[0].account_id;
+			res.redirect('/profile');
+		}
+		else {
+			console.log("Invalid user pass!");
+			res.redirect('/');
+		}
+	});
 });
 
 const server = app.listen(8080, function() {
