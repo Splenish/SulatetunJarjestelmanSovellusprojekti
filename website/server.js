@@ -7,7 +7,6 @@ const mysql = require('mysql');
 const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
 
-
 //Serve public folders static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -62,6 +61,17 @@ app.get('/profile', function(req, res) {
 		console.log("cant access profile without session");
 		res.redirect('/');
 	}
+});
+
+app.get('/map', function(req, res) {
+	var jsonData = {
+		units: [
+			{id: 1, lat: 64.9987565, lng: 25.497008599999997},
+			{id: 2, lat: 64.5, lng: 26.497006},
+			{id: 3, lat: 64.5, lng: 50.497006}
+		]
+	};
+	res.render('map.hbs', { units: JSON.stringify(jsonData) });
 });
 
 app.get('/logout', function(req, res) {

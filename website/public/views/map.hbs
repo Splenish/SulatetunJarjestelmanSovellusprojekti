@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Vehicle Tracker</title>
+  </head>
+  <body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="left">
+            <a href="/" style="color: white;"><h2><b>Vehicle Tracker</b></h2></a>
+            <p><i>Keeps you on the road</i></p>
+            </div>
+            <div class="right">
+            <a href="/#info">Info</a>
+            {{#if sessionExists}}
+                <a href="/map">Map</a>
+                <a href="/list">List</a>
+                <a href="/profile">Profile</a>
+                <a href="/logout">Logout</a>
+            {{else}}
+                <a href="#" onclick="document.getElementById('loginPopup').style.display='block'">Login</a>
+            {{/if}}
+            </div>
+        </div>
+        <div id="map"></div>
+        <script id="mapScript" src="js/map.js" data-units="{{units}}"></script>
+        <div class="footer">
+            <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>
+        </div>
+    </div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZa3HybrRh2tnphZWRjqF4Fvpnnc9e_p4&callback=initMap"></script>
+    </body>
+</html>

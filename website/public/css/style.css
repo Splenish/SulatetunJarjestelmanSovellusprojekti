@@ -1,12 +1,11 @@
-body {
-		background-color: #676767;
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 .wrapper {
-	margin-left: auto;
-	margin-right: auto;
-	width: 90em;
-	background-color: white;
+	height: 100%;
 }
 
 .header {
@@ -151,6 +150,11 @@ body {
 @keyframes animatezoom {
 	from {transform: scale(0)}
 	to {transform: scale(1)}
+}
+
+#map {
+	height: 500px;
+	width: 100%;
 }
 
 html {
