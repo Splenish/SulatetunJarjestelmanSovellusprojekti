@@ -27,7 +27,7 @@ function initMap() {
 
     map.fitBounds(bounds);
 
-    var icon = "/images/front_1.png";
+    var icon = "/images/icon.png";
 
     //Setup markers
     for (var i = 0; i < units.length; i++) {
