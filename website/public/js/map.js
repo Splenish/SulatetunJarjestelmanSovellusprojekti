@@ -1,7 +1,8 @@
 //Fetch data passed from Express
-var units = JSON.parse(document.getElementById("mapScript").getAttribute("data-units")).units;
+var units = JSON.parse(document.getElementById("mapScript").getAttribute("data-units"));
 var map;
-var markers = {};
+var markers = [];
+var infoWindows = [];
 
 function initMap() {
     //Calculate the center to focus the map on and calculate zoom
@@ -27,14 +28,24 @@ function initMap() {
 
     map.fitBounds(bounds);
 
-    var icon = "/images/icon.png";
+    var icons = [];
+    for (var i = 0; i < 2; i++) {
+        icons[i] = "/images/unit_icon" + i + ".png"; 
+    }
 
-    //Setup markers
+    //Setup markers with info windows
     for (var i = 0; i < units.length; i++) {
         markers[i] = new google.maps.Marker({
             position: units[i],
             map: map,
-            icon: icon
+            icon: icons[i%icons.length]
+        });
+        infoWindows[i] = new google.maps.InfoWindow({
+            content: "Test window data"
+        });
+        var marker = markers[i];
+        google.maps.event.addListener(marker, 'click', function() {
+            infoWindows[i].open(map, this);
         });
     }
 }
