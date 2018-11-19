@@ -22,8 +22,16 @@
         </div>
         <div id="map"></div>
         <div class="mapLegend">
-            <img src="/images/unit_icon0.png" alt="">Online
-            <img src="/images/unit_icon1.png" alt="">Offline
+            Legend
+            <a href="javascript:void(0)" id="onlineLegend">
+                <img src="/images/online.png" id="onlineLegendIcon">
+                Online
+            </a>
+            <a href="javascript:void(0)" id="offlineLegend">
+                <img src="/images/offline.png" id="offlineLegendIcon">
+                Offline
+            </a>
+            <a href="javascript:void(0)" onclick="resetMarkers()" id="resetLegend">Reset</a>
         </div>
         <script id="mapScript" src="js/map.js" data-units="{{units}}"></script>
         <div class="footer">

@@ -65,11 +65,11 @@ app.get('/profile', function(req, res) {
 
 app.get('/map', function(req, res) {
 	var units = [
-		{id: 1, lat: 64.9987565, lng: 25.497008599999997},
-		{id: 2, lat: 64.5, lng: 26.497006},
-		{id: 3, lat: 64.5, lng: 50.497006},
-		{id: 4, lat: 65.5, lng: 20.497006},
-		{id: 5, lat: 63.5, lng: 55.497006}
+		{id: 1, status: "offline", lat: 64.9987565, lng: 25.497008599999997},
+		{id: 2, status: "online", lat: 64.5, lng: 26.497006},
+		{id: 3, status: "online", lat: 64.5, lng: 50.497006},
+		{id: 4, status: "online", lat: 65.5, lng: 20.497006},
+		{id: 5, status: "online", lat: 63.5, lng: 55.497006}
 	];
 	res.render('map.hbs', {
 		units: JSON.stringify(units)

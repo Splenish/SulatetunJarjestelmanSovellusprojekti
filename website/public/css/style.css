@@ -161,13 +161,15 @@ html, body {
 	margin-left: auto;
 	margin-right: auto;
 	width: 60%;
-	height: 5%;
+	height: 6%;
+	padding-top: 0.5%;
+	text-align: center;
 }
 
-.mapLegend img {
-	margin-top: 10px;
-	margin-bottom: 10px;
+.mapLegend a {
+	padding-right: 1%;
 }
+
 
 html {
     scroll-behavior: smooth
