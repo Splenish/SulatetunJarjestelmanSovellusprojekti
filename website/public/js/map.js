@@ -21,7 +21,7 @@ function placeMarker(unit) {
     });
     google.maps.event.addListener(marker, 'click', function(){
         infoWindow.close();
-        infoWindow.setContent( "<div><h1>"+ unit.id +"</h1><p>Lat:" + unit.lat + "<br>Lng:" + unit.lng + "</p></div>");
+        infoWindow.setContent( "<div><h1>Unit "+ unit.id +"</h1><h4>Location</h4 ><p>Lat: " + unit.lat + "<br>Lng: " + unit.lng + "</p></div>");
         infoWindow.open(map, marker);
     });
     markers.push(marker);
