@@ -297,3 +297,9 @@ table {
 }
 
 tr:nth-child(even) {background-color: #f2f2f2;}
+
+.profileInformation {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}

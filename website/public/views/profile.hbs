@@ -33,38 +33,42 @@
         {{#if sessionExists}}{{else}}
         <div class="content">
           <h1>Welcome,</h1><br>
-          <p>Company information</p>
+
         </div>
 
-          <centre>
-          <table>
-          <tr>
-            <th>Company name</th>
-            <th>Last Name</th>
+          <div class="profileInformation">
+            <h2>Company Information</h2>
+            <centre>
+            <table>
+            <tr>
+              <th>Company name</th>
+              <td>Rekkakuski raikkonen Oy</td>
 
-          </tr>
-          <tr>
-          <th>Full Name</th>
-            <td>Peter</td>
-
-
-          </tr>
-          <tr>
-          <th>Phone number</th>
-            <td>Lois</td>
-
-          </tr>
-          <tr>
-          <th>Email</th>
-            <td>Joe</td>
-
-          </tr>
-
-        </table>
-      </centre>
+            </tr>
+            <tr>
+            <th>Full Name</th>
+              <td>Peter Jöötösön</td>
 
 
+            </tr>
+            <tr>
+            <th>Phone number</th>
+              <td>+6666666666</td>
+
+            </tr>
+            <tr>
+            <th>Email</th>
+              <td>Peter@ajoneuvonseuranta.com</td>
+
+            </tr>
+
+          </table>
+        </centre>
+        <br>
         <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Edit</button>
+          </div>
+
+
         <div id="id01" class="modal">
 
           <form class="modal-content containereditanimate" action="/action_page.php">
