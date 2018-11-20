@@ -33,7 +33,7 @@ app.use(session({secret: 'SepsisMies123'}));
 var db = mysql.createConnection({
 	host: "localhost",
 	user: "root",
-	password: "paskaHousu1",
+	password: "123",
 	database: "ajoneuvonseuranta"
 });
 
@@ -62,6 +62,10 @@ app.get('/profile', function(req, res) {
 		console.log("cant access profile without session");
 		res.redirect('/');
 	}
+});
+
+app.get('/test', function(req, res) {
+	res.render('profile.hbs');
 });
 
 app.get('/logout', function(req, res) {

@@ -25,8 +25,78 @@
           {{/if}}
         </div>
       </div>
-      <div class="content">
-        <h1>Template Profile page</h1>
+
+      <div class="">
+
+
+
+        {{#if sessionExists}}
+        <div class="content">
+          <h1>Welcome,</h1>
+          <p>Company information</p>
+        </div>
+
+        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Edit</button>
+        <div id="id01" class="modal">
+
+          <form class="modal-content containereditanimate" action="/action_page.php">
+
+
+                <div class="container_edit">
+                  <form action="/action_page.php">
+
+                    <div class="row">
+                      <div class="editcol-25">
+                        <label for="company">Company</label>
+                      </div>
+                      <div class="editcol-75">
+                        <input type="text" id="company" name="company" placeholder="Your company..">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="editcol-25">
+                        <label for="lname">Full Name</label>
+                      </div>
+                      <div class="editcol-75">
+                        <input type="text" id="flname" name="flastname" placeholder="Your name..">
+                      </div>
+                    </div>
+
+                     <div class="row">
+                      <div class="editcol-25">
+                        <label for="phonenumber">Phone number</label>
+                      </div>
+                      <div class="editcol-75">
+                        <input type="text" id="phonenumber" name="phonenumber" placeholder="Insert your phone number..">
+                      </div>
+                    </div>
+
+                      <div class="row">
+                      <div class="editcol-25">
+                        <label for="email">Email</label>
+                      </div>
+                      <div class="editcol-75">
+                        <input type="text" id="email" name="email" placeholder="Your email..">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <input type="submit" value="Submit">
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+
+        </div>
+
+
+
+{{else}}
+        <div class="content">
+          <h1>Log in to view this pages information.</h1>
+        </div>
+
+        {{/if}}
       </div>
       <div class="footer">
         <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>
