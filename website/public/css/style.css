@@ -284,3 +284,16 @@ button:hover {
     from {transform: scale(0)}
     to {transform: scale(1)}
 }
+/*Profile pages out look formating*/
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+ th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}

@@ -30,11 +30,39 @@
 
 
 
-        {{#if sessionExists}}
+        {{#if sessionExists}}{{else}}
         <div class="content">
-          <h1>Welcome,</h1>
+          <h1>Welcome,</h1><br>
           <p>Company information</p>
         </div>
+
+          <centre>
+          <table>
+          <tr>
+            <th>Company name</th>
+            <th>Last Name</th>
+
+          </tr>
+          <tr>
+          <th>Full Name</th>
+            <td>Peter</td>
+
+
+          </tr>
+          <tr>
+          <th>Phone number</th>
+            <td>Lois</td>
+
+          </tr>
+          <tr>
+          <th>Email</th>
+            <td>Joe</td>
+
+          </tr>
+
+        </table>
+      </centre>
+
 
         <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Edit</button>
         <div id="id01" class="modal">
@@ -89,7 +117,7 @@
 
         </div>
 
-{{else}}
+
         <div class="content">
           <h1>Log in to view this pages information.</h1>
         </div>
