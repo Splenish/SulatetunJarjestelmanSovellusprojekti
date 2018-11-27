@@ -15,18 +15,79 @@
         </div>
         <div class="right">
           <a href="/#info">Info</a>
-          {{#if sessionExists}}
-            <a href="/map">Map</a>
-            <a href="/list">List</a>
-            <a href="/profile">Profile</a>
-            <a href="/logout">Logout</a>
-          {{else}}
-            <a href="#" onclick="document.getElementById('loginPopup').style.display='block'">Login</a>
-          {{/if}}
+          <a href="/map">Map</a>
+          <a href="/list">List</a>
+          <a href="/profile">Profile</a>
+          <a href="/logout">Logout</a>
         </div>
       </div>
-      <div class="content">
-        <h1>Template Profile page</h1>
+
+      <div class="">
+        <div class="content">
+          <h1>Welcome {{contact_name}}</h1><br>
+
+        </div>
+
+          <div class="profileInformation">
+            <h2>Company Information</h2>
+            <centre>
+            <table>
+            <tr>
+              <th>Company name</th>
+              <td>{{company_name}}</td>
+            </tr>
+            <tr>
+              <th>Full Name</th>
+              <td>{{contact_name}}</td>
+            </tr>
+            <tr>
+              <th>Phone number</th>
+              <td>{{contact_phone}}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{contact_email}}</td>
+            </tr>
+
+          </table>
+        </centre>
+        <br>
+        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Edit</button>
+          </div>
+
+
+        <div id="id01" class="modal">
+          <form class="modal-content containereditanimate" action="/">
+
+                <div class="container_edit">
+                  <form action="/action_page.php">
+
+                     <div class="row">
+                      <div class="editcol-25">
+                        <label for="phonenumber">Phone number</label>
+                      </div>
+                      <div class="editcol-75">
+                        <input type="text" id="phonenumber" name="phonenumber" placeholder={{contact_phone}}>
+                      </div>
+                    </div>
+
+                      <div class="row">
+                      <div class="editcol-25">
+                        <label for="email">Email</label>
+                      </div>
+                      <div class="editcol-75">
+                        <input type="text" id="email" name="email" placeholder={{contact_email}}>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <input type="submit" value="Edit">
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+        </div>
+
       </div>
       <div class="footer">
         <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>
