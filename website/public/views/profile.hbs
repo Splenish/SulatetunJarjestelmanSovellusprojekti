@@ -15,20 +15,14 @@
         </div>
         <div class="right">
           <a href="/#info">Info</a>
-          {{#if sessionExists}}
-            <a href="/map">Map</a>
-            <a href="/list">List</a>
-            <a href="/profile">Profile</a>
-            <a href="/logout">Logout</a>
-          {{else}}
-            <a href="#" onclick="document.getElementById('loginPopup').style.display='block'">Login</a>
-          {{/if}}
+          <a href="/map">Map</a>
+          <a href="/list">List</a>
+          <a href="/profile">Profile</a>
+          <a href="/logout">Logout</a>
         </div>
       </div>
 
       <div class="">
-
-        {{#if sessionExists}}
         <div class="content">
           <h1>Welcome,</h1><br>
 
@@ -40,19 +34,19 @@
             <table>
             <tr>
               <th>Company name</th>
-              <td>Rekkakuski raikkonen Oy</td>
+              <td>{{company_name}}</td>
             </tr>
             <tr>
               <th>Full Name</th>
-              <td>Peter Jöötösön</td>
+              <td>{{contact_name}}</td>
             </tr>
             <tr>
               <th>Phone number</th>
-              <td>+6666666666</td>
+              <td>{{contact_phone}}</td>
             </tr>
             <tr>
               <th>Email</th>
-              <td>Peter@ajoneuvonseuranta.com</td>
+              <td>{{contact_email}}</td>
             </tr>
 
           </table>
@@ -68,29 +62,12 @@
                 <div class="container_edit">
                   <form action="/action_page.php">
 
-                    <div class="row">
-                      <div class="editcol-25">
-                        <label for="company">Company</label>
-                      </div>
-                      <div class="editcol-75">
-                        <input type="text" id="company" name="company" readonly="readonly" placeholder="Your company..">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="editcol-25">
-                        <label for="lname">Full Name</label>
-                      </div>
-                      <div class="editcol-75">
-                        <input type="text" id="flname" name="flastname" placeholder="Your name..">
-                      </div>
-                    </div>
-
                      <div class="row">
                       <div class="editcol-25">
                         <label for="phonenumber">Phone number</label>
                       </div>
                       <div class="editcol-75">
-                        <input type="text" id="phonenumber" name="phonenumber" placeholder="Insert your phone number..">
+                        <input type="text" id="phonenumber" name="phonenumber" placeholder={{contact_phone}}>
                       </div>
                     </div>
 
@@ -99,23 +76,18 @@
                         <label for="email">Email</label>
                       </div>
                       <div class="editcol-75">
-                        <input type="text" id="email" name="email" placeholder="Your email..">
+                        <input type="text" id="email" name="email" placeholder={{contact_email}}>
                       </div>
                     </div>
 
                     <div class="row">
-                      <input type="submit" value="Submit">
+                      <input type="submit" value="Edit">
                             <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
                     </div>
                   </form>
                 </div>
         </div>
-        {{else}}
-        <div class="content">
-          <h1>Log in to view this pages information.</h1>
-        </div>
 
-        {{/if}}
       </div>
       <div class="footer">
         <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>

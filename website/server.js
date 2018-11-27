@@ -65,7 +65,13 @@ app.get('/profile', function(req, res) {
 });
 
 app.get('/test', function(req, res) {
-	res.render('profile.hbs');
+	res.render('profile.hbs', {
+		account_id: 1,
+		company_name: "Random Yritys",
+		contact_name: "Nimi",
+		contact_email: "random@random.com",
+		contact_phone: "0440966080"
+	});
 });
 
 app.get('/logout', function(req, res) {
