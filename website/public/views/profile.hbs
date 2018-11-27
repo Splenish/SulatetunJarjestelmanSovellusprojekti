@@ -28,9 +28,7 @@
 
       <div class="">
 
-
-
-        {{#if sessionExists}}{{else}}
+        {{#if sessionExists}}
         <div class="content">
           <h1>Welcome,</h1><br>
 
@@ -43,23 +41,18 @@
             <tr>
               <th>Company name</th>
               <td>Rekkakuski raikkonen Oy</td>
-
             </tr>
             <tr>
-            <th>Full Name</th>
+              <th>Full Name</th>
               <td>Peter Jöötösön</td>
-
-
             </tr>
             <tr>
-            <th>Phone number</th>
+              <th>Phone number</th>
               <td>+6666666666</td>
-
             </tr>
             <tr>
-            <th>Email</th>
+              <th>Email</th>
               <td>Peter@ajoneuvonseuranta.com</td>
-
             </tr>
 
           </table>
@@ -70,9 +63,7 @@
 
 
         <div id="id01" class="modal">
-
-          <form class="modal-content containereditanimate" action="/action_page.php">
-
+          <form class="modal-content containereditanimate" action="/">
 
                 <div class="container_edit">
                   <form action="/action_page.php">
@@ -82,7 +73,7 @@
                         <label for="company">Company</label>
                       </div>
                       <div class="editcol-75">
-                        <input type="text" id="company" name="company" placeholder="Your company..">
+                        <input type="text" id="company" name="company" readonly="readonly" placeholder="Your company..">
                       </div>
                     </div>
                     <div class="row">
@@ -118,10 +109,8 @@
                     </div>
                   </form>
                 </div>
-
         </div>
-
-
+        {{else}}
         <div class="content">
           <h1>Log in to view this pages information.</h1>
         </div>
