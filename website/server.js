@@ -31,15 +31,14 @@ app.use(session({secret: 'SepsisMies123'}));
 //Setup database and connect to it
 var db = mysql.createConnection({
 	host: "localhost",
-	user: "root",
-	password: "paskaHousu1",
-	database: "ajoneuvonseuranta"
+	user: "dbuser",
+	password: "Sepsis123Database",
+	database: "AjoneuvonSeuranta"
 });
 
-/*
 db.connect(function(err) {
 	if (err) throw err;
-});*/
+});
 
 app.get('/', function(req, res) {
 	if (req.session.account_id) {
@@ -55,7 +54,13 @@ app.get('/', function(req, res) {
 app.get('/profile', function(req, res) {
 	if (req.session.account_id) {
 		console.log("Rendering profile because session exists");
-		res.render('profile.hbs', {sessionExists: true});
+		res.render('profile.hbs', {
+			account_id: 1,
+			company_name: "Raihakka Rekka Oy",
+			contact_name: "Raimo Raihakka",
+			contact_email: "raimo.raihakka@raihakkarekka.com",
+			contact_phone: "040 1415510"
+		});
 	}
 	else {
 		console.log("cant access profile without session");
