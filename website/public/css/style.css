@@ -1,0 +1,342 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+.wrapper {
+	height: 100;
+	min-height: 100%;
+}
+
+.header {
+	position: relative;
+	overflow: hidden;
+	top: 0px;
+	left: 0px;
+	background-color: #191981;
+	border-bottom: 1px solid Black;
+	border-top: 1px solid Black;
+	float: left;
+	width: 100%;
+	height: 10%;
+}
+
+.header .left {
+	color: White;
+	padding-left: 2%;
+	float: left;
+	width: 300px;
+}
+
+.header .right {
+	display: flex;
+	height: 81.5px;
+	float: right;
+	align-items: center;
+	margin-right: 5%;
+}
+
+.header .right a {
+	color: white;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.slideshow {
+	clear: both;
+	position: relative;
+	background-color: black;
+	border-bottom: 1px solid Black;
+	width: 100%;
+	height: auto;
+}
+
+.slideshow img {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: inherit;
+}
+
+.slides {
+	display: none;
+}
+
+.active {
+  background-color: #717171 !important;
+}
+
+.dots {
+	left: 50%;
+	position: absolute;
+	bottom: 0;
+}
+
+.dot {
+	cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.content {
+	margin-top: 2%;
+	text-align: center;
+	padding-bottom: 5%;
+}
+
+.footer {
+	background-color: #191981;
+	color: White;
+	border-top: 1px solid Black;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	height: 5%;
+}
+
+
+.login {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4);
+	padding-top: 60px;
+}
+
+
+.login-content {
+	background-color: #fefefe;
+	margin: 5px auto;
+	border: 1px solid #888;
+	width: 40%;
+}
+
+.close {
+	position: absolute;
+	right: 150px;
+	top: 0;
+	color: #888;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: red;
+	cursor: pointer;
+}
+
+.animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+	from {-webkit-transform: scale(0)}
+	to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+	from {transform: scale(0)}
+	to {transform: scale(1)}
+}
+
+#map {
+	overflow: hidden;
+	height: 78.2vh;
+	width: 100%;
+}
+
+.mapLegend {
+	height: 6%;
+	padding-top: 0.5%;
+	padding-bottom: 0.5%;
+	text-align: center;
+}
+
+.mapLegend a {
+	padding-right: 1%;
+	padding-left: 1%;
+	color: black;
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+.expand {
+	text-align: center;
+}
+
+.unitList {
+	margin-top: 2%;
+	margin-bottom: 2%;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	grid-column-gap: 10px;
+	text-align: center;
+}
+
+.unit {
+	border: 1px solid black;
+}
+
+.container_edit input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.container_edit label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.container_edit input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.container_edit input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container_edit {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.editcol-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.editcol-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .editcol-25, .editcol-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+/*Edit Columns styling down below*/
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.containereditanimate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+/*Profile pages out look formating*/
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+ th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+.profileInformation {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
