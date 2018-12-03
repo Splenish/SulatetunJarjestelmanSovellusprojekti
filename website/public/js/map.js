@@ -6,7 +6,7 @@ var markers = [];
 
 //Places a marker on the map using units information and attaches a infoWindow on click
 function placeMarker(unit) {
-    var latLng = new google.maps.LatLng(unit.lat, unit.lng);
+    var latLng = new google.maps.LatLng(unit.latitude, unit.longitude);
     var icon = "";
     if (unit.status == "online") {
         icon = "/images/online.png";
@@ -21,7 +21,7 @@ function placeMarker(unit) {
     });
     google.maps.event.addListener(marker, 'click', function(){
         infoWindow.close();
-        infoWindow.setContent( "<div><h1>Unit "+ unit.id +"</h1><h4>Location</h4 ><p>Lat: " + unit.lat + "<br>Lng: " + unit.lng + "</p></div>");
+        infoWindow.setContent( "<div><h1>Unit "+ unit.device_id +"</h1><h4>Location</h4 ><p>Lat: " + unit.latitude + "<br>Lng: " + unit.longitude + "</p></div>");
         infoWindow.open(map, marker);
     });
     markers.push(marker);
@@ -111,9 +111,9 @@ function initMap() {
     var latLngList = [];
     var center = {lat: 0, lng: 0};
     for (var i = 0; i < units.length; i++) {
-        center.lat += units[i].lat;
-        center.lng += units[i].lng;
-        latLngList.push(new google.maps.LatLng(units[i].lat, units[i].lng));
+        center.lat += units[i].latitude;
+        center.lng += units[i].longitude;
+        latLngList.push(new google.maps.LatLng(units[i].latitude, units[i].longitude));
     }
     center.lat /= units.length;
     center.lng /= units.length;

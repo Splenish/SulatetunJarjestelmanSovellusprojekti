@@ -54,12 +54,18 @@ app.get('/', function(req, res) {
 app.get('/profile', function(req, res) {
 	if (req.session.account_id) {
 		console.log("Rendering profile because session exists");
-		res.render('profile.hbs', {
-			account_id: 1,
-			company_name: "Raihakka Rekka Oy",
-			contact_name: "Raimo Raihakka",
-			contact_email: "raimo.raihakka@raihakkarekka.com",
-			contact_phone: "040 1415510"
+		var sqlQuery = "SELECT company_name, first_name, last_name, telephone, email FROM client INNER JOIN account ON client.client_id = account.account_id WHERE account_id = ?";
+		db.query(sqlQuery, [req.session.account_id], function(err, result) {
+			if (err) throw err;
+			if (result.length > 0) {
+				console.log(result);
+				console.log("Fetched account id data!");
+				res.render('profile.hbs', {data: result});
+			}
+			else {
+				console.log("Invalid query");
+				res.redirect('/');
+			}
 		});
 	}
 	else {
@@ -69,16 +75,23 @@ app.get('/profile', function(req, res) {
 });
 
 app.get('/map', function(req, res) {
-	var units = [
-		{id: 1, status: "offline", lat: 64.9987565, lng: 25.497008599999997},
-		{id: 2, status: "online", lat: 64.5, lng: 26.497006},
-		{id: 3, status: "online", lat: 64.5, lng: 50.497006},
-		{id: 4, status: "online", lat: 65.5, lng: 20.497006},
-		{id: 5, status: "online", lat: 63.5, lng: 55.497006}
-	];
-	res.render('map.hbs', {
-		units: JSON.stringify(units)
-	});
+	if (req.session.account_id) {
+		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ?";
+		db.query(sqlQuery, [req.session.account_id], function(err, result) {
+			if (err) throw err;
+			if (result.length > 0) {
+				console.log(result);
+				console.log("Fetched device data!");
+				res.render('map.hbs', {
+					units: JSON.stringify(result)
+				});
+			}
+		});
+	}
+	else {	
+		console.log('Can\'t access map page without being logged in!');
+		res.redirect('/');
+	}
 });
 
 app.get('/logout', function(req, res) {
@@ -108,6 +121,29 @@ app.post('/validateLogin', function(req, res) {
 			res.redirect('/');
 		}
 	});
+});
+
+app.post('/editProfile', function(req, res) {
+	if (req.session.account_id) {
+		if (req.body.phonenumber != "") {
+			var sqlQuery = "UPDATE client c INNER JOIN account a ON c.client_id = a.client_id SET c.telephone = ? WHERE account_id = ?";
+			db.query(sqlQuery, [req.body.phonenumber, req.session.account_id], function(err, result) {
+				if (err) throw err;
+				console.log(result);
+			});
+		}
+		if (req.body.email != "") {
+			var sqlQuery = "UPDATE client c INNER JOIN account a ON c.client_id = a.client_id SET c.email = ? WHERE account_id = ?";
+			db.query(sqlQuery, [req.body.email, req.session.account_id], function(err, result) {
+				if (err) throw err;
+				console.log(result);
+			});
+		}
+		res.redirect('/profile');
+	}
+	else {
+		res.redirect('/');
+	}
 });
 
 const server = app.listen(8080, function() {
