@@ -146,6 +146,6 @@ app.post('/editProfile', function(req, res) {
 	}
 });
 
-const server = app.listen(8080, function() {
+const server = app.listen(8080, '193.167.101.121', function() {
 	console.log("Server running at port 8080!");
 });
