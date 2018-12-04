@@ -35,10 +35,10 @@ var db = mysql.createConnection({
 	password: "Sepsis123Database",
 	database: "AjoneuvonSeuranta"
 });
-/*
+
 db.connect(function(err) {
 	if (err) throw err;
-});*/
+});
 
 app.get('/', function(req, res) {
 	if (req.session.account_id) {
