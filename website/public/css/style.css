@@ -342,13 +342,26 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 }
 
 .grid-list-container {
+	grid-template-columns: auto auto;
   display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #191981;
-  padding: 1px;
+	grid-row-gap:15px;
+	grid-column-gap: 1%;
+  padding: 10px;
+
+
 }
-.grid-list-item {
-  background-color: rgba(255, 255, 255, 0.8);
+
+.grid-list-item-online {
+	background-color: #a3cca3;
+  border: 1px solid rgba(25, 25, 129, 0.8);
+  padding: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.grid-list-item-offline {
+	color: #700000;
+	background-color: #d1c0c0;
   border: 1px solid rgba(25, 25, 129, 0.8);
   padding: 20px;
   font-size: 15px;
