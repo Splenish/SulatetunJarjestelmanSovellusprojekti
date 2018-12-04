@@ -35,10 +35,10 @@ var db = mysql.createConnection({
 	password: "Sepsis123Database",
 	database: "AjoneuvonSeuranta"
 });
-
+/*
 db.connect(function(err) {
 	if (err) throw err;
-});
+});*/
 
 app.get('/', function(req, res) {
 	if (req.session.account_id) {
@@ -49,6 +49,28 @@ app.get('/', function(req, res) {
 		console.log("rending index no session");
 		res.render('index.hbs', {sessionExists: false});
 	}
+});
+
+app.get('/list', function(req, res) {
+	var array = [
+		{
+			data_id: 1,
+			device_id: 1,
+			latitude: 64.9988,
+			longitude: 25.4969,
+			temp: 24.1,
+			status: 'online'
+		},
+	  {
+			data_id: 2,
+			device_id: 2,
+			latitude: 65.01,
+			longitude: 25.46,
+			temp: 23.9,
+			status: 'offline'
+		}
+	];
+	res.render('list.hbs', {data: array});
 });
 
 app.get('/profile', function(req, res) {
@@ -88,7 +110,7 @@ app.get('/map', function(req, res) {
 			}
 		});
 	}
-	else {	
+	else {
 		console.log('Can\'t access map page without being logged in!');
 		res.redirect('/');
 	}
@@ -146,6 +168,6 @@ app.post('/editProfile', function(req, res) {
 	}
 });
 
-const server = app.listen(8080, '193.167.101.121', function() {
+const server = app.listen(8080, function() {
 	console.log("Server running at port 8080!");
 });
