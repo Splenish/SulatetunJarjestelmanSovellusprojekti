@@ -52,25 +52,26 @@ app.get('/', function(req, res) {
 });
 
 app.get('/list', function(req, res) {
-	var array = [
-		{
-			data_id: 1,
-			device_id: 1,
-			latitude: 64.9988,
-			longitude: 25.4969,
-			temp: 24.1,
-			status: 'online'
-		},
-	  {
-			data_id: 2,
-			device_id: 2,
-			latitude: 65.01,
-			longitude: 25.46,
-			temp: 23.9,
-			status: 'offline'
-		}
-	];
-	res.render('list.hbs', {data: array});
+	if (req.session.account_id) {
+		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ? ORDER BY timestamp DESC";
+		db.query(sqlQuery, [req.session.account_id], function(err, result) {
+			if (err) throw err;
+			if (result.length > 0) {
+				console.log(result);
+				console.log("Fetched account id data!");
+				res.render('list.hbs', {data: JSON.stringify(result)});
+			}
+			else {
+				console.log("Invalid query");
+				res.redirect('/');
+			}
+		});
+	}
+	else {
+		console.log("cant access profile without session");
+		res.redirect('/');
+	}
+			
 });
 
 app.get('/profile', function(req, res) {
@@ -98,7 +99,7 @@ app.get('/profile', function(req, res) {
 
 app.get('/map', function(req, res) {
 	if (req.session.account_id) {
-		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ?";
+		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ? ORDER BY timestamp DESC";
 		db.query(sqlQuery, [req.session.account_id], function(err, result) {
 			if (err) throw err;
 			if (result.length > 0) {

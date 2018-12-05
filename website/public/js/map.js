@@ -1,5 +1,17 @@
 //Fetch data passed from Express
 var units = JSON.parse(document.getElementById("mapScript").getAttribute("data-units"));
+var uniqueUnits = [];
+units.forEach(function(unit) {
+    var found = false;
+    uniqueUnits.forEach(function(uniq) {
+       if (uniq.device_id == unit.device_id) {
+           found = true;
+       }
+    });
+    if (!found) {
+        uniqueUnits.push(unit);
+    }
+});
 var map;
 var infoWindow;
 var markers = [];
@@ -110,13 +122,13 @@ function initMap() {
     //Calculate the center to focus the map on and calculate zoom
     var latLngList = [];
     var center = {lat: 0, lng: 0};
-    for (var i = 0; i < units.length; i++) {
-        center.lat += units[i].latitude;
-        center.lng += units[i].longitude;
-        latLngList.push(new google.maps.LatLng(units[i].latitude, units[i].longitude));
+    for (var i = 0; i < uniqueUnits.length; i++) {
+        center.lat += uniqueUnits[i].latitude;
+        center.lng += uniqueUnits[i].longitude;
+        latLngList.push(new google.maps.LatLng(uniqueUnits[i].latitude, uniqueUnits[i].longitude));
     }
-    center.lat /= units.length;
-    center.lng /= units.length;
+    center.lat /= uniqueUnits.length;
+    center.lng /= uniqueUnits.length;
 
     var bounds = new google.maps.LatLngBounds();
     latLngList.forEach(function(n) {
@@ -133,8 +145,8 @@ function initMap() {
     map.fitBounds(bounds);
 
     //Setup markers with info windows
-    for (var i = 0; i < units.length; i++) {
-        placeMarker(units[i]);
+    for (var i = 0; i < uniqueUnits.length; i++) {
+        placeMarker(uniqueUnits[i]);
     }
 
     var legend = document.getElementById("offlineLegend");

@@ -85,7 +85,6 @@ html, body {
 .content {
 	flex: 1 1 auto;
 	text-align: center;
-	padding-bottom: 5%;
 }
 
 .footer {
@@ -336,6 +335,7 @@ table {
 tr:nth-child(even) {background-color: #f2f2f2;}
 
 .profileInformation {
+	padding-top: 2%;
 	width: 60%;
 	margin-left: auto;
 	margin-right: auto;

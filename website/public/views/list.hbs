@@ -22,8 +22,9 @@
         </div>
       </div>
       <div class="content">
-        <div class="grid-list-container">
-          {{#each data}}
+        <div class="grid-list-container" id="listTarget">
+        <!--    
+	{{#each data}}
             <div class="grid-list-item">
                 <h3>Unit {{this.device_id}}</h3>
                 <p>
@@ -32,7 +33,7 @@
                 Temperature: {{this.temp}}
                 </p>
             </div>
-          {{/each}}
+          {{/each}}--!>
         </div>
         Here we have displayed vehicle trackers which appears online and offline
       </div>
@@ -40,7 +41,6 @@
         <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>
       </div>
     </div>
-    <script src="js/login.js" type="text/javascript"></script>
-    <script src="js/slideshow.js" type="text/javascript"></script>
+    <script id="listScript" src="js/list.js" type="text/javascript" data-units="{{data}}"></script>
   </body>
 </html>
