@@ -1,20 +1,27 @@
-//Fetch data passed from Express
-var units = JSON.parse(document.getElementById("mapScript").getAttribute("data-units"));
-var uniqueUnits = [];
-units.forEach(function(unit) {
-    var found = false;
-    uniqueUnits.forEach(function(uniq) {
-       if (uniq.device_id == unit.device_id) {
-           found = true;
-       }
-    });
-    if (!found) {
-        uniqueUnits.push(unit);
-    }
+var units = [];
+
+//Start socket.io connection
+var socket = io();
+socket.emit('getUnits', 0);
+socket.on('getUnits', function(unitData) {
+    units = unitData;
+    refreshMap();
 });
+
+//Fetch new example data after 5 seconds
+setTimeout(function() { socket.emit('getUnits', 1);}, 5000);
+setTimeout(function() { socket.emit('getUnits', 2);}, 10000);
+setTimeout(function() { socket.emit('getUnits', 4);}, 15000);
+setTimeout(function() { socket.emit('getUnits', 3);}, 20000);
+
+//Fetch data passed from Express
+// = JSON.parse(document.getElementById("mapScript").getAttribute("data-units"));
+var uniqueUnits = [];
 var map;
 var infoWindow;
 var markers = [];
+var mapsLoaded;
+var openWindowId;
 
 //Places a marker on the map using units information and attaches a infoWindow on click
 function placeMarker(unit) {
@@ -29,14 +36,41 @@ function placeMarker(unit) {
     var marker = new google.maps.Marker({
       position : latLng,
       map: map,
-      icon: icon
+      icon: icon,
+      device_id: unit.device_id
     });
     google.maps.event.addListener(marker, 'click', function(){
-        infoWindow.close();
-        infoWindow.setContent( "<div><h1>Unit "+ unit.device_id +"</h1><h4>Location</h4 ><p>Lat: " + unit.latitude + "<br>Lng: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C</p></div>");
         infoWindow.open(map, marker);
+        openWindowId = marker.device_id;
+        refreshInfoWindow();
     });
     markers.push(marker);
+}
+
+function updateMarker(unit) {
+    for (var marker = 0; marker < markers.length; marker++) {
+        if (markers[marker].device_id == unit.device_id) {
+            var latLng = new google.maps.LatLng(unit.latitude, unit.longitude);
+            var icon = "";
+            if (unit.status == "online") {
+                icon = "/images/online.png";
+            }
+            else if (unit.status == "offline") {
+                icon = "/images/offline.png";
+            }
+            markers[marker].setPosition(latLng);
+            markers[marker].setIcon(icon);
+        }
+    }
+    refreshInfoWindow();
+}
+
+function refreshInfoWindow() {
+    uniqueUnits.forEach(function(unit) {
+        if (unit.device_id == openWindowId) {
+            infoWindow.setContent("<h1>Unit " + unit.device_id + "</h1><h4>Location</h4 ><p>Lat: " + unit.latitude + "<br>Lng: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C</p></div>");
+        }
+    }); 
 }
 
 function filterMarker(type) {
@@ -119,38 +153,79 @@ function resetMarkers() {
 }
 
 function initMap() {
-    //Calculate the center to focus the map on and calculate zoom
-    var latLngList = [];
-    var center = {lat: 0, lng: 0};
-    for (var i = 0; i < uniqueUnits.length; i++) {
-        center.lat += uniqueUnits[i].latitude;
-        center.lng += uniqueUnits[i].longitude;
-        latLngList.push(new google.maps.LatLng(uniqueUnits[i].latitude, uniqueUnits[i].longitude));
-    }
-    center.lat /= uniqueUnits.length;
-    center.lng /= uniqueUnits.length;
-
-    var bounds = new google.maps.LatLngBounds();
-    latLngList.forEach(function(n) {
-        bounds.extend(n);
-    });
-
     //Initialize the map
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: center
-    });
-
-    infoWindow = new google.maps.InfoWindow();
-
-    map.fitBounds(bounds);
-
-    //Setup markers with info windows
-    for (var i = 0; i < uniqueUnits.length; i++) {
-        placeMarker(uniqueUnits[i]);
-    }
-
+    map = new google.maps.Map(document.getElementById('map'));
+    refreshMap();
     var legend = document.getElementById("offlineLegend");
     legend.setAttribute('onclick',"filterMarker(0)");
     legend = document.getElementById("onlineLegend");
     legend.setAttribute('onclick',"filterMarker(1)");
+}
+
+function refreshMap() {
+    if (units.length > 0) {
+        uniqueUnits = [];
+        units.forEach(function(unit) {
+            var found = false;
+            uniqueUnits.forEach(function(uniq) {
+               if (uniq.device_id == unit.device_id) {
+                   found = true;
+               }
+            });
+            if (!found) {
+                uniqueUnits.push(unit);
+            }
+        });
+        //If the map has not been fully initialized calculate the starting center and initialize other elements
+        if (!mapsLoaded) {
+            var latLngList = [];
+            var center = {lat: 0, lng: 0};
+            for (var i = 0; i < uniqueUnits.length; i++) {
+                center.lat += uniqueUnits[i].latitude;
+                center.lng += uniqueUnits[i].longitude;
+                latLngList.push(new google.maps.LatLng(uniqueUnits[i].latitude, uniqueUnits[i].longitude));
+            }
+            center.lat /= uniqueUnits.length;
+            center.lng /= uniqueUnits.length;
+
+            var bounds = new google.maps.LatLngBounds();
+            latLngList.forEach(function(n) {
+                bounds.extend(n);
+            });
+
+            infoWindow = new google.maps.InfoWindow({
+                content: "<div id=\"infowin\"></div>"
+            });
+
+            map.fitBounds(bounds);
+            mapsLoaded = map;
+            
+            for (var i = 0; i < uniqueUnits.length; i++) {
+                placeMarker(uniqueUnits[i]);
+            }
+        }
+        else {
+            //Modify old markers position if there is no new units
+            if (uniqueUnits.length == markers.length) {
+                for (var i = 0; i < uniqueUnits.length; i++) {
+                    updateMarker(uniqueUnits[i]);
+                }
+            }
+            //If there is new units update old markers and push in the new unit
+            else {
+                while (markers.length > uniqueUnits.length) {
+                    markers[markers.length-1].setMap(null);
+                    markers.pop();
+                }
+                for (var i = 0; i < uniqueUnits.length; i++) {
+                    if (i < markers.length) {
+                        updateMarker(uniqueUnits[i]);
+                    }
+                    else {
+                        placeMarker(uniqueUnits[i]);
+                    }
+                }
+            }
+        }
+    }
 }

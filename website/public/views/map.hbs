@@ -20,28 +20,28 @@
                 <a href="/logout">Logout</a>
             </div>
         </div>
-	<div class="content">
-	    <div id="map"></div>
-	        <div class="mapLegend">
-	            Legend
-	            <a href="javascript:void(0)" id="onlineLegend">
-	                <img src="/images/online.png" id="onlineLegendIcon">
-	                Online
-	            </a>
-	            <a href="javascript:void(0)" id="offlineLegend">
-	                <img src="/images/offline.png" id="offlineLegendIcon">
-	                Offline
-	            </a>
-	            <a href="javascript:void(0)" onclick="resetMarkers()" id="resetLegend">Reset</a>
-                </div>
+	    <div class="content">
+            <div id="map"><div id="mapRefresh">asd</div></div>
+            <div class="mapLegend">
+                Legend
+                <a href="javascript:void(0)" id="onlineLegend">
+                    <img src="/images/online.png" id="onlineLegendIcon">
+                    Online
+                </a>
+                <a href="javascript:void(0)" id="offlineLegend">
+                    <img src="/images/offline.png" id="offlineLegendIcon">
+                    Offline
+                </a>
+                <a href="javascript:void(0)" onclick="resetMarkers()" id="resetLegend">Reset</a>
             </div>
-
+        </div>
         <div class="footer">
             <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>
         </div>
         </div>
-        <script id="mapScript" src="js/map.js" data-units="{{units}}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZa3HybrRh2tnphZWRjqF4Fvpnnc9e_p4&callback=initMap"></script>
+        <script src="socket.io/socket.io.js"></script>
+        <script id="mapScript" src="js/map.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZa3HybrRh2tnphZWRjqF4Fvpnnc9e_p4&callback=initMap"></script>
     </div>
     </body>
 </html>

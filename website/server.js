@@ -6,6 +6,8 @@ const bodyparser = require('body-parser');
 const mysql = require('mysql');
 const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
+const socketServer = require('http').createServer(app);
+const io = require('socket.io')(socketServer);
 
 //Serve public folders static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,10 +37,10 @@ var db = mysql.createConnection({
 	password: "Sepsis123Database",
 	database: "AjoneuvonSeuranta"
 });
-
+/*
 db.connect(function(err) {
 	if (err) throw err;
-});
+});*/
 
 app.get('/', function(req, res) {
 	if (req.session.account_id) {
@@ -169,6 +171,143 @@ app.post('/editProfile', function(req, res) {
 	}
 });
 
+
+app.get('/test', function(req, res) {
+	res.render('map.hbs');
+});
+
+
+io.on('connection', function (socket) {
+	socket.on('getUnits', function(data) {
+		if (data == 0) {
+			console.log("Received 0, sending first data");
+			io.emit('getUnits', [
+				{
+					device_id: 1,
+					latitude: 64.3,
+					longitude: 25.1,
+					temp: 25,
+					status: 'online',
+					timestamp: '22:14:00T9.12.2018'
+				},
+				{
+					device_id: 2,
+					latitude: 64,
+					longitude: 24.8,
+					temp: 25,
+					status: 'offline',
+					timestamp: '22:14:00T9.12.2018'
+				}
+			]);
+		}
+		else if (data == 1) {
+			console.log("Received 1, sending second data");
+			io.emit('getUnits', [
+				{
+					device_id: 1,
+					latitude: 65.5,
+					longitude: 25.5,
+					temp: 25,
+					status: 'online',
+					timestamp: '22:14:00T9.12.2018'
+				},
+				{
+					device_id: 2,
+					latitude: 66,
+					longitude: 25,
+					temp: 25,
+					status: 'offline',
+					timestamp: '22:14:00T9.12.2018'
+				},
+				{
+					device_id: 3,
+					latitude: 66.1,
+					longitude: 25.2,
+					temp: 25,
+					status: 'offline',
+					timestamp: '22:14:00T9.12.2018'
+				},
+				{
+					device_id: 4,
+					latitude: 65.9,
+					longitude: 24.8,
+					temp: 25,
+					status: 'offline',
+					timestamp: '22:14:00T9.12.2018'
+				}
+			]);
+		}
+		else if (data == 2) {
+			console.log("Received 2, sending second data");
+			io.emit('getUnits', [
+				{
+					device_id: 1,
+					latitude: 65.3,
+					longitude: 25.5,
+					temp: 25,
+					status: 'online',
+					timestamp: '22:14:00T9.12.2018'
+				},
+				{
+					device_id: 2,
+					latitude: 65.7,
+					longitude: 25,
+					temp: 25,
+					status: 'offline',
+					timestamp: '22:14:00T9.12.2018'
+				},
+				{
+					device_id: 3,
+					latitude: 66,
+					longitude: 25.2,
+					temp: 25,
+					status: 'offline',
+					timestamp: '22:14:00T9.12.2018'
+				}
+			]);
+		}
+		else if (data == 3) {
+			console.log("Received 3, sending second data");
+			io.emit('getUnits', [
+				{
+					device_id: 1,
+					latitude: 65.3,
+					longitude: 25.5,
+					temp: 25,
+					status: 'online',
+					timestamp: '22:14:00T9.12.2018'
+				},
+				{
+					device_id: 2,
+					latitude: 65.7,
+					longitude: 25,
+					temp: 25,
+					status: 'offline',
+					timestamp: '22:14:00T9.12.2018'
+				}
+			]);
+		}
+		else if (data == 4) {
+			console.log("Received 4, sending second data");
+			io.emit('getUnits', [
+				{
+					device_id: 1,
+					latitude: 65.3,
+					longitude: 25.5,
+					temp: 25,
+					status: 'online',
+					timestamp: '22:14:00T9.12.2018'
+				}
+			]);
+		}
+	});
+});
+
+
+socketServer.listen(8080);
+
+
+/*
 const server = app.listen(8080, function() {
 	console.log("Server running at port 8080!");
-});
+});*/
