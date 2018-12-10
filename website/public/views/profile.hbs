@@ -23,11 +23,10 @@
       </div>
       <div class="content">
 	{{#each data}}
-        <h1>Welcome {{this.first_name}} {{this.last_name}}</h1><br>
-        </div>
           <div class="profileInformation">
-            <h2>Company Information</h2>
-            <centre>
+            <h1>Welcome {{this.first_name}} {{this.last_name}}</h1>
+            <h3>Company Information</h3>
+            <center>
             <table>
             <tr>
               <th>Company name</th>
@@ -46,7 +45,7 @@
               <td>{{this.email}}</td>
             </tr>
           </table>
-        </centre>
+        </center>
         <br>
         <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Edit</button>
 	</div>
@@ -75,6 +74,7 @@
               </div>
           </form>
         </div>
+      </div>
       </div>
       <div class="footer">
         <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>

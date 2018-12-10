@@ -28,20 +28,18 @@
       <div id="loginPopup" class="login">
         <span onclick="document.getElementById('loginPopup').style.display='none'" class="close" title="Close login">&times;</span>
         <form class="login-content animate" action="/validateLogin" method="POST">
-          <center>
-            <div class="container">
-              <label><i>Insert your login information down below</i></label  ><br>
-              <label for="uname"><b>Username</b></label><br>
-              <input type="text" placeholder="Enter Username" name="uname" required><br>
-              <label for="psw"><b>Password</b></label><br>
-              <input type="password" placeholder="Enter Password" name="psw" required><br><br>
-              <button type="submit"class="btn btn-primary">Login</button>
-              <br><br>
-            </div>
-            <div class="container" style="background-color:#f1f1f1">
-              <button type="button" onclick="document.getElementById('loginPopup').style.display='none'" class="btn btn-info">Cancel</button><br> <br>
-            </div>
-          </center>
+          <div class="container">
+            <label><i>Insert your login information down below</i></label><br>
+            <label for="uname"><b>Username</b></label><br>
+            <input type="text" placeholder="Enter Username" name="uname" required><br>
+            <label for="psw"><b>Password</b></label><br>
+            <input type="password" placeholder="Enter Password" name="psw" required><br><br>
+            <button type="submit"class="btn btn-primary">Login</button>
+            <br><br>
+          </div>
+          <div class="container" style="background-color:#f1f1f1; padding-top: 5%;">
+            <button type="button" onclick="document.getElementById('loginPopup').style.display='none'" class="btn btn-info">Cancel</button><br> <br>
+          </div>
         </form>
       </div>
       <div class="content">
@@ -55,7 +53,7 @@
              <span class="dot" onclick="showSlide(2)"></span>
            </div>
         </div>
-        <div id="info">
+        <div style="margin-top: 1%;" id="info">
           <h1>Who are we?</h1>
           <p>We are a group of students with alot of passion to provide market leading software!<br>
           Our promise is to provide best quality GPS based tracking software for large companies who need to keep track of their physical resources.</p>

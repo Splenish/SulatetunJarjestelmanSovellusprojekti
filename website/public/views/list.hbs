@@ -23,25 +23,14 @@
       </div>
       <div class="content">
         <h1>Units</h1>
-        <div class="grid-list-container">
-          {{#each data}}
-            <div class="grid-list-item-{{this.status}}">
-
-                <h2>Unit {{this.device_id}} - <i>{{this.status}} </i></h2>
-                <u><h5>Location:</h5></u>
-                <p>
-                Latitude: {{this.latitude}}<br>
-                Longitude: {{this.longitude}}<br>
-                <u><h5>Sensor values</u></h2>
-                Temperature: {{this.temp}}
-                </p>
-            </div>
-          {{/each}}
+        <div class="grid-list-container" id="listTarget">
         </div>
       </div>
       <div class="footer">
         <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>
       </div>
     </div>
+    <script src="socket.io/socket.io.js"></script>
+    <script id="listScript" src="js/list.js" type="text/javascript" data-id="{{id}}"></script>
   </body>
 </html>
