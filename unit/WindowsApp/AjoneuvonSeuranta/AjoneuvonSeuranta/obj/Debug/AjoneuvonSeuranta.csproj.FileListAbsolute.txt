@@ -1,0 +1,12 @@
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\bin\Debug\AjoneuvonSeuranta.exe.config
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\bin\Debug\AjoneuvonSeuranta.exe
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\bin\Debug\AjoneuvonSeuranta.pdb
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\bin\Debug\Google.Protobuf.dll
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\bin\Debug\MySql.Data.dll
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\bin\Debug\Google.Protobuf.xml
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\bin\Debug\MySql.Data.xml
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\obj\Debug\AjoneuvonSeuranta.csprojAssemblyReference.cache
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\obj\Debug\AjoneuvonSeuranta.csproj.CoreCompileInputs.cache
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\obj\Debug\AjoneuvonSeuranta.csproj.CopyComplete
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\obj\Debug\AjoneuvonSeuranta.exe
+C:\Users\kb\source\repos\AjoneuvonSeuranta\AjoneuvonSeuranta\obj\Debug\AjoneuvonSeuranta.pdb
