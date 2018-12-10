@@ -53,7 +53,7 @@ html, body {
 .slideshow img {
 	margin-left: auto;
 	margin-right: auto;
-	width: 80%;
+	width: 70%;
 	height: inherit;
 }
 
@@ -118,7 +118,8 @@ html, body {
 	background-color: #fefefe;
 	margin: 5px auto;
 	border: 1px solid #888;
-	width: 40%;
+	width: 30%;
+	text-align: center;
 }
 
 .close {

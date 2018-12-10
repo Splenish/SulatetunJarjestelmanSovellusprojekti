@@ -23,17 +23,6 @@
       </div>
       <div class="content">
         <div class="grid-list-container" id="listTarget">
-        <!--    
-	{{#each data}}
-            <div class="grid-list-item">
-                <h3>Unit {{this.device_id}}</h3>
-                <p>
-                Location: {{this.latitude}} {{this.longitude}}
-                <br>
-                Temperature: {{this.temp}}
-                </p>
-            </div>
-          {{/each}}--!>
         </div>
         Here we have displayed vehicle trackers which appears online and offline
       </div>
@@ -41,6 +30,7 @@
         <p>Created by Kimmo Raappana, Niina Harja and Riku Kaipainen. 2018</p>
       </div>
     </div>
-    <script id="listScript" src="js/list.js" type="text/javascript" data-units="{{data}}"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script id="listScript" src="js/list.js" type="text/javascript" data-id="{{id}}"></script>
   </body>
 </html>
