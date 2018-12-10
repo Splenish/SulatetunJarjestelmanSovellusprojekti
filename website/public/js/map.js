@@ -66,8 +66,7 @@ function updateMarker(unit) {
 function refreshInfoWindow() {
     uniqueUnits.forEach(function(unit) {
         if (unit.device_id == openWindowId) {
-	    var time = unit.timestamp.split("T");
-            infoWindow.setContent("<h1>Unit " + unit.device_id + "</h1>" + time[0] + " " + time[1].split(".")[0] + "<h4>Location</h4 ><p>Lat: " + unit.latitude + "<br>Lng: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C</p></div>");
+            infoWindow.setContent("<h1>Unit " + unit.device_id + "</h1><h4>Location</h4 ><p>Latitude: " + unit.latitude + "<br>Longitude: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C</p>"  + unit.timestamp.split("T")[0] + " " + unit.timestamp.split("T")[1].split(".")[0] + "</div>");
         }
     }); 
 }
