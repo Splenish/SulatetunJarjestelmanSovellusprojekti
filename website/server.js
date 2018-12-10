@@ -6,6 +6,8 @@ const bodyparser = require('body-parser');
 const mysql = require('mysql');
 const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
+const socketServer = require('http').createServer(app);
+const io = require('socket.io')(socketServer);
 
 //Serve public folders static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -51,9 +53,21 @@ app.get('/', function(req, res) {
 	}
 });
 
+app.get('/list', function(req, res) {
+	if (req.session.account_id) {
+		console.log('User' + req.session.account_id + ' opened list page.');
+		res.render('list.hbs', {id: req.session.account_id});
+	}
+	else {
+		console.log("cant access profile without session");
+		res.redirect('/');
+	}
+			
+});
+
 app.get('/profile', function(req, res) {
 	if (req.session.account_id) {
-		console.log("Rendering profile because session exists");
+		console.log('User' + req.session.account_id + ' opened profile page.');
 		var sqlQuery = "SELECT company_name, first_name, last_name, telephone, email FROM client INNER JOIN account ON client.client_id = account.account_id WHERE account_id = ?";
 		db.query(sqlQuery, [req.session.account_id], function(err, result) {
 			if (err) throw err;
@@ -69,26 +83,17 @@ app.get('/profile', function(req, res) {
 		});
 	}
 	else {
-		console.log("cant access profile without session");
+		console.log("can\'t access profile without session");
 		res.redirect('/');
 	}
 });
 
 app.get('/map', function(req, res) {
 	if (req.session.account_id) {
-		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ?";
-		db.query(sqlQuery, [req.session.account_id], function(err, result) {
-			if (err) throw err;
-			if (result.length > 0) {
-				console.log(result);
-				console.log("Fetched device data!");
-				res.render('map.hbs', {
-					units: JSON.stringify(result)
-				});
-			}
-		});
+		console.log('User' + req.session.account_id + ' opened map page.');
+		res.render('map.hbs', {id: req.session.account_id});
 	}
-	else {	
+	else {
 		console.log('Can\'t access map page without being logged in!');
 		res.redirect('/');
 	}
@@ -146,6 +151,18 @@ app.post('/editProfile', function(req, res) {
 	}
 });
 
-const server = app.listen(8080, function() {
-	console.log("Server running at port 8080!");
+
+io.on('connection', function (socket) {
+	socket.on('getUnits', function(data) {
+		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status, timestamp FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ? ORDER BY timestamp DESC";
+		db.query(sqlQuery, [data], function(err, result) {
+			if (err) throw err;
+			if (result.length > 0) {	
+				socket.emit('getUnits',result);
+			}
+		});
+	});
 });
+
+
+socketServer.listen(8080);

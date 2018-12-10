@@ -4,13 +4,13 @@ html, body {
 }
 
 .wrapper {
-	height: 100;
-	min-height: 100%;
+	display: flex;
+	flex-flow: column;
+	height: 100%;
 }
 
 .header {
-	position: relative;
-	overflow: hidden;
+	flex: 0 1 auto;
 	top: 0px;
 	left: 0px;
 	background-color: #191981;
@@ -18,7 +18,6 @@ html, body {
 	border-top: 1px solid Black;
 	float: left;
 	width: 100%;
-	height: 10%;
 }
 
 .header .left {
@@ -54,7 +53,7 @@ html, body {
 .slideshow img {
 	margin-left: auto;
 	margin-right: auto;
-	width: 80%;
+	width: 70%;
 	height: inherit;
 }
 
@@ -84,12 +83,12 @@ html, body {
 }
 
 .content {
-	margin-top: 2%;
+	flex: 1 1 auto;
 	text-align: center;
-	padding-bottom: 5%;
 }
 
 .footer {
+	flex: 0 1 40px;
 	background-color: #191981;
 	color: White;
 	border-top: 1px solid Black;
@@ -119,7 +118,8 @@ html, body {
 	background-color: #fefefe;
 	margin: 5px auto;
 	border: 1px solid #888;
-	width: 40%;
+	width: 30%;
+	text-align: center;
 }
 
 .close {
@@ -336,7 +336,35 @@ table {
 tr:nth-child(even) {background-color: #f2f2f2;}
 
 .profileInformation {
+	padding-top: 2%;
 	width: 60%;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.grid-list-container {
+	grid-template-columns: auto auto;
+  display: grid;
+	grid-row-gap:15px;
+	grid-column-gap: 1%;
+  padding: 10px;
+
+
+}
+
+.grid-list-item-online {
+	background-color: #a3cca3;
+  border: 1px solid rgba(25, 25, 129, 0.8);
+  padding: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.grid-list-item-offline {
+	color: #700000;
+	background-color: #d1c0c0;
+  border: 1px solid rgba(25, 25, 129, 0.8);
+  padding: 20px;
+  font-size: 15px;
+  text-align: center;
 }
