@@ -1,18 +1,16 @@
 var units = [];
+var acId = parseInt(document.getElementById("mapScript").getAttribute("data-id"));
 
 //Start socket.io connection
 var socket = io();
-socket.emit('getUnits', 0);
+socket.emit('getUnits', acId);
 socket.on('getUnits', function(unitData) {
     units = unitData;
     refreshMap();
 });
 
-//Fetch new example data after 5 seconds
-setTimeout(function() { socket.emit('getUnits', 1);}, 5000);
-setTimeout(function() { socket.emit('getUnits', 2);}, 10000);
-setTimeout(function() { socket.emit('getUnits', 4);}, 15000);
-setTimeout(function() { socket.emit('getUnits', 3);}, 20000);
+//Fetch new example data after 1 seconds
+setInterval(function() { socket.emit('getUnits', acId);}, 1000);
 
 //Fetch data passed from Express
 // = JSON.parse(document.getElementById("mapScript").getAttribute("data-units"));
@@ -68,7 +66,8 @@ function updateMarker(unit) {
 function refreshInfoWindow() {
     uniqueUnits.forEach(function(unit) {
         if (unit.device_id == openWindowId) {
-            infoWindow.setContent("<h1>Unit " + unit.device_id + "</h1><h4>Location</h4 ><p>Lat: " + unit.latitude + "<br>Lng: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C</p></div>");
+	    var time = unit.timestamp.split("T");
+            infoWindow.setContent("<h1>Unit " + unit.device_id + "</h1>" + time[0] + " " + time[1].split(".")[0] + "<h4>Location</h4 ><p>Lat: " + unit.latitude + "<br>Lng: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C</p></div>");
         }
     }); 
 }
@@ -82,7 +81,7 @@ function filterMarker(type) {
             legendIcon = document.getElementById("offlineLegendIcon");
             if (legendIcon.src.search("online.png")) {
                 for (var mark = 0; mark < markers.length; mark++) {
-                    if (units[mark].status == "offline") {
+                    if (uniqueUnits[mark].status == "offline") {
                         markers[mark].setMap(null);
                     }
                 }
@@ -97,7 +96,7 @@ function filterMarker(type) {
                 legendIcon = document.getElementById("onlineLegendIcon");
                 if (legendIcon.src.search("online.png")) {
                     for (var mark = 0; mark < markers.length; mark++) {
-                        if (units[mark].status == "online") {
+                        if (uniqueUnits[mark].status == "online") {
                             markers[mark].setMap(null);
                         }
                     }
@@ -120,7 +119,7 @@ function showMarker(type) {
             legend = document.getElementById("offlineLegend");
             legendIcon = document.getElementById("offlineLegendIcon");
             for (var mark = 0; mark < markers.length; mark++) {
-                if (units[mark].status == "offline") {
+                if (uniqueUnits[mark].status == "offline") {
                     markers[mark].setMap(map);
                     legendIcon.src = "/images/offline.png";
                     legend.setAttribute('onclick',"filterMarker(0)");
@@ -131,7 +130,7 @@ function showMarker(type) {
             legend = document.getElementById("onlineLegend");
             legendIcon = document.getElementById("onlineLegendIcon");
             for (var mark = 0; mark < markers.length; mark++) {
-                if (units[mark].status == "online") {
+                if (uniqueUnits[mark].status == "online") {
                     markers[mark].setMap(map);
                     legendIcon.src = "/images/online.png";
                     legend.setAttribute('onclick',"filterMarker(1)");

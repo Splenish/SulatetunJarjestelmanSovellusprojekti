@@ -21,7 +21,7 @@
             </div>
         </div>
 	    <div class="content">
-            <div id="map"><div id="mapRefresh">asd</div></div>
+            <div id="map"></div>
             <div class="mapLegend">
                 Legend
                 <a href="javascript:void(0)" id="onlineLegend">
@@ -40,7 +40,7 @@
         </div>
         </div>
         <script src="socket.io/socket.io.js"></script>
-        <script id="mapScript" src="js/map.js"></script>
+        <script id="mapScript" src="js/map.js" data-id="{{id}}"></script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZa3HybrRh2tnphZWRjqF4Fvpnnc9e_p4&callback=initMap"></script>
     </div>
     </body>

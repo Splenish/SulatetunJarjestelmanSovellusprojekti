@@ -37,10 +37,10 @@ var db = mysql.createConnection({
 	password: "Sepsis123Database",
 	database: "AjoneuvonSeuranta"
 });
-/*
+
 db.connect(function(err) {
 	if (err) throw err;
-});*/
+});
 
 app.get('/', function(req, res) {
 	if (req.session.account_id) {
@@ -55,19 +55,8 @@ app.get('/', function(req, res) {
 
 app.get('/list', function(req, res) {
 	if (req.session.account_id) {
-		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ? ORDER BY timestamp DESC";
-		db.query(sqlQuery, [req.session.account_id], function(err, result) {
-			if (err) throw err;
-			if (result.length > 0) {
-				console.log(result);
-				console.log("Fetched account id data!");
-				res.render('list.hbs', {data: JSON.stringify(result)});
-			}
-			else {
-				console.log("Invalid query");
-				res.redirect('/');
-			}
-		});
+		console.log('User' + req.session.account_id + ' opened list page.');
+		res.render('list.hbs', {id: req.session.account_id});
 	}
 	else {
 		console.log("cant access profile without session");
@@ -78,7 +67,7 @@ app.get('/list', function(req, res) {
 
 app.get('/profile', function(req, res) {
 	if (req.session.account_id) {
-		console.log("Rendering profile because session exists");
+		console.log('User' + req.session.account_id + ' opened profile page.');
 		var sqlQuery = "SELECT company_name, first_name, last_name, telephone, email FROM client INNER JOIN account ON client.client_id = account.account_id WHERE account_id = ?";
 		db.query(sqlQuery, [req.session.account_id], function(err, result) {
 			if (err) throw err;
@@ -94,24 +83,15 @@ app.get('/profile', function(req, res) {
 		});
 	}
 	else {
-		console.log("cant access profile without session");
+		console.log("can\'t access profile without session");
 		res.redirect('/');
 	}
 });
 
 app.get('/map', function(req, res) {
 	if (req.session.account_id) {
-		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ? ORDER BY timestamp DESC";
-		db.query(sqlQuery, [req.session.account_id], function(err, result) {
-			if (err) throw err;
-			if (result.length > 0) {
-				console.log(result);
-				console.log("Fetched device data!");
-				res.render('map.hbs', {
-					units: JSON.stringify(result)
-				});
-			}
-		});
+		console.log('User' + req.session.account_id + ' opened map page.');
+		res.render('map.hbs', {id: req.session.account_id});
 	}
 	else {
 		console.log('Can\'t access map page without being logged in!');
@@ -172,142 +152,17 @@ app.post('/editProfile', function(req, res) {
 });
 
 
-app.get('/test', function(req, res) {
-	res.render('map.hbs');
-});
-
-
 io.on('connection', function (socket) {
 	socket.on('getUnits', function(data) {
-		if (data == 0) {
-			console.log("Received 0, sending first data");
-			io.emit('getUnits', [
-				{
-					device_id: 1,
-					latitude: 64.3,
-					longitude: 25.1,
-					temp: 25,
-					status: 'online',
-					timestamp: '22:14:00T9.12.2018'
-				},
-				{
-					device_id: 2,
-					latitude: 64,
-					longitude: 24.8,
-					temp: 25,
-					status: 'offline',
-					timestamp: '22:14:00T9.12.2018'
-				}
-			]);
-		}
-		else if (data == 1) {
-			console.log("Received 1, sending second data");
-			io.emit('getUnits', [
-				{
-					device_id: 1,
-					latitude: 65.5,
-					longitude: 25.5,
-					temp: 25,
-					status: 'online',
-					timestamp: '22:14:00T9.12.2018'
-				},
-				{
-					device_id: 2,
-					latitude: 66,
-					longitude: 25,
-					temp: 25,
-					status: 'offline',
-					timestamp: '22:14:00T9.12.2018'
-				},
-				{
-					device_id: 3,
-					latitude: 66.1,
-					longitude: 25.2,
-					temp: 25,
-					status: 'offline',
-					timestamp: '22:14:00T9.12.2018'
-				},
-				{
-					device_id: 4,
-					latitude: 65.9,
-					longitude: 24.8,
-					temp: 25,
-					status: 'offline',
-					timestamp: '22:14:00T9.12.2018'
-				}
-			]);
-		}
-		else if (data == 2) {
-			console.log("Received 2, sending second data");
-			io.emit('getUnits', [
-				{
-					device_id: 1,
-					latitude: 65.3,
-					longitude: 25.5,
-					temp: 25,
-					status: 'online',
-					timestamp: '22:14:00T9.12.2018'
-				},
-				{
-					device_id: 2,
-					latitude: 65.7,
-					longitude: 25,
-					temp: 25,
-					status: 'offline',
-					timestamp: '22:14:00T9.12.2018'
-				},
-				{
-					device_id: 3,
-					latitude: 66,
-					longitude: 25.2,
-					temp: 25,
-					status: 'offline',
-					timestamp: '22:14:00T9.12.2018'
-				}
-			]);
-		}
-		else if (data == 3) {
-			console.log("Received 3, sending second data");
-			io.emit('getUnits', [
-				{
-					device_id: 1,
-					latitude: 65.3,
-					longitude: 25.5,
-					temp: 25,
-					status: 'online',
-					timestamp: '22:14:00T9.12.2018'
-				},
-				{
-					device_id: 2,
-					latitude: 65.7,
-					longitude: 25,
-					temp: 25,
-					status: 'offline',
-					timestamp: '22:14:00T9.12.2018'
-				}
-			]);
-		}
-		else if (data == 4) {
-			console.log("Received 4, sending second data");
-			io.emit('getUnits', [
-				{
-					device_id: 1,
-					latitude: 65.3,
-					longitude: 25.5,
-					temp: 25,
-					status: 'online',
-					timestamp: '22:14:00T9.12.2018'
-				}
-			]);
-		}
+		var sqlQuery = "SELECT data_id, device_data.device_id, latitude, longitude, temp, status, timestamp FROM device_data INNER JOIN device ON device.device_id = device_data.device_id WHERE account_id = ? ORDER BY timestamp DESC";
+		db.query(sqlQuery, [data], function(err, result) {
+			if (err) throw err;
+			if (result.length > 0) {	
+				socket.emit('getUnits',result);
+			}
+		});
 	});
 });
 
 
 socketServer.listen(8080);
-
-
-/*
-const server = app.listen(8080, function() {
-	console.log("Server running at port 8080!");
-});*/
