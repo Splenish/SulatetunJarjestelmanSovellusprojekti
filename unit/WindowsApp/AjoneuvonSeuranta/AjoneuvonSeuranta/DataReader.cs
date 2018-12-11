@@ -27,24 +27,31 @@ namespace AjoneuvonSeuranta {
 
 
         public void ReadDataFromUnit() {
-            string indata = sp.ReadLine();
-            string[] data = indata.Split(',');
-            if(!firstTime) {
-                Device_id = int.Parse(data[0]);
-                Lat = float.Parse(data[1]);
-                Lng = float.Parse(data[2]);
-                Temp = float.Parse(data[3]);                
-                Status = data[4].Trim('\r');
 
-                Console.WriteLine("device id: " + Device_id);
-                Console.WriteLine("lat: " + Lat);
-                Console.WriteLine("lng: " + Lng);
-                Console.WriteLine("temp: " + Temp);
-                Console.WriteLine("status: " + Status);
-                db.UploadData(Device_id,Lat,Lng,Temp,Status);
-            } else {
-                firstTime = false;
+            try {
+                string indata = sp.ReadLine();
+                string[] data = indata.Split(',');
+                if(!firstTime) {
+                    Device_id = int.Parse(data[0]);
+                    Lat = float.Parse(data[1]);
+                    Lng = float.Parse(data[2]);
+                    Temp = float.Parse(data[3]);
+                    Status = data[4].Trim('\r');
+
+                    Console.WriteLine("device id: " + Device_id);
+                    Console.WriteLine("lat: " + Lat);
+                    Console.WriteLine("lng: " + Lng);
+                    Console.WriteLine("temp: " + Temp);
+                    Console.WriteLine("status: " + Status);
+                    db.UploadData(Device_id,Lat,Lng,Temp,Status);
+                } else {
+                    firstTime = false;
+                }
+            } catch {
+                Console.WriteLine("IOerror");
             }
+            
+            
            Console.WriteLine("---------------------------");
         }
     }

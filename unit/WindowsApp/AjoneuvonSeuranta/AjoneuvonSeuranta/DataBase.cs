@@ -35,9 +35,13 @@ namespace AjoneuvonSeuranta {
             myCommand.Parameters.AddWithValue("@p4", temp);
             myCommand.Parameters.AddWithValue("@p5", status);
             myCommand.Connection = conn;
-            myCommand.ExecuteNonQuery();
-            myCommand.CommandText = "DELETE FROM device_data WHERE timestamp < DATE_SUB(now(), INTERVAL 1 DAY)";
-            myCommand.ExecuteNonQuery();
+            try {
+                myCommand.ExecuteNonQuery();
+                myCommand.CommandText = "DELETE FROM device_data WHERE timestamp < DATE_SUB(now(), INTERVAL 1 DAY)";
+                myCommand.ExecuteNonQuery();
+            } catch {
+                Console.WriteLine("SQl error");
+            }
             //myCommand.Connection.Close();
         }
     }
