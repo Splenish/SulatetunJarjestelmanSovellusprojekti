@@ -1,0 +1,19 @@
+function validateEdit() {
+	var email = document.getElementById("email").;
+	var phoneNumber = document.getElemenyById("phonenumber");
+	if (!validateEmail(email)) {
+		alert("Invalid email address, please insert a valid email");
+		return false;
+	}
+return false;
+	
+}
+
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function validatePhone(phone) {
+
+}

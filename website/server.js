@@ -44,7 +44,7 @@ db.connect(function(err) {
 
 app.get('/', function(req, res) {
 	if (req.session.account_id) {
-		console.log("Rendering profile because session exists");
+		console.log('User' + req.session.account_id + ' opened index page.');
 		res.render('index.hbs', {sessionExists: true});
 	}
 	else {
@@ -138,11 +138,15 @@ app.post('/editProfile', function(req, res) {
 			});
 		}
 		if (req.body.email != "") {
-			var sqlQuery = "UPDATE client c INNER JOIN account a ON c.client_id = a.client_id SET c.email = ? WHERE account_id = ?";
-			db.query(sqlQuery, [req.body.email, req.session.account_id], function(err, result) {
-				if (err) throw err;
-				console.log(result);
-			});
+			//Validate email on server side
+			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    			if (re.test(String(email).toLowerCase())) {
+				var sqlQuery = "UPDATE client c INNER JOIN account a ON c.client_id = a.client_id SET c.email = ? WHERE account_id = ?";
+				db.query(sqlQuery, [req.body.email, req.session.account_id], function(err, result) {
+					if (err) throw err;
+					console.log(result);
+				});
+			}
 		}
 		res.redirect('/profile');
 	}
