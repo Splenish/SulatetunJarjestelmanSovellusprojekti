@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
 const socketServer = require('http').createServer(app);
 const io = require('socket.io')(socketServer);
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 //Serve public folders static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -113,16 +115,26 @@ app.post('/validateLogin', function(req, res) {
 	console.log("Trying to login with " + req.body.uname + " " + req.body.psw);
 	var uname = req.body.uname;
 	var psw = req.body.psw;
-	var sql = "SELECT account_id FROM account WHERE user_name = ? AND password = ?";
-	db.query(sql, [uname, psw], function(err, result) {
+	var sql = "SELECT account_id, password FROM account WHERE user_name = ?";
+	db.query(sql, [uname], function(err, result) {
 		if (err) throw err;
 		if (result.length > 0) {
-			console.log("Valid user pass!");
-			req.session.account_id = result[0].account_id;
-			res.redirect('/profile');
+			console.log(result);
+			//encrypt the fetched password and compare it to plain text
+			bcrypt.compare(psw, result[0].password, function(err, bRes) {	
+				if (bRes) {
+					console.log("Valid user pass!");
+					req.session.account_id = result[0].account_id;
+					res.redirect('/profile');
+				}
+				else {
+					console.log("Invalid password");
+					res.redirect('/');
+				}
+			});
 		}
 		else {
-			console.log("Invalid user pass!");
+			console.log("Invalid query!");
 			res.redirect('/');
 		}
 	});
@@ -155,6 +167,19 @@ app.post('/editProfile', function(req, res) {
 	}
 });
 
+/*
+* Used to hash password locally since we do not have actual registeration page
+*
+*
+app.get('/updateHash', function(req, res) {
+	bcrypt.hash('maagi', saltRounds, function(err, hash) {	
+		var sqlQuery = "UPDATE account SET password = ? WHERE account_id = 2;";
+		db.query(sqlQuery, [hash], function(err, result) {
+			if(err) throw err;
+			console.log("Updated pass!");
+		});
+	});
+});*/
 
 io.on('connection', function (socket) {
 	socket.on('getUnits', function(data) {
