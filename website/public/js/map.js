@@ -66,7 +66,50 @@ function updateMarker(unit) {
 function refreshInfoWindow() {
     uniqueUnits.forEach(function(unit) {
         if (unit.device_id == openWindowId) {
-            infoWindow.setContent("<h1>Unit " + unit.device_id + "</h1><h4>Location</h4 ><p>Latitude: " + unit.latitude + "<br>Longitude: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C</p>"  + unit.timestamp.split("T")[0] + " " + unit.timestamp.split("T")[1].split(".")[0] + "</div>");
+	    var found = 0;
+	    var latLngList = [];
+	    units.forEach(function(un) {
+		if (found < 2) {				
+			if (unit.device_id == un.device_id) {
+				found++;
+				var obj = {lat: un.latitude, lng: un.longitude, time: un.timestamp};
+				latLngList.push(obj);
+			}
+		}
+	    });
+	    
+	    var time1 = latLngList[0].time; 
+	    var time2 = latLngList[1].time;
+	    var time1Year = time1.slice(0,4);
+	    var time1Mon = time1.slice(5,7);
+	    var time1Day = time1.slice(8,10); 
+	    var time1Hours = time1.slice(11,13);
+	    var time1Minutes = time1.slice(14,16);
+	    var time1Seconds = time1.slice(17,19);
+	    var d1 = new Date(time1Year, time1Day, time1Hours, time1Minutes, time1Seconds, 0);
+
+	    var time2Year = time2.slice(0,4);
+	    var time2Mon = time2.slice(5,7);
+	    var time2Day = time2.slice(8,10); 
+	    var time2Hours = time2.slice(11,13);
+	    var time2Minutes = time2.slice(14,16);
+	    var time2Seconds = time2.slice(17,19);
+	    var d2 = new Date(time2Year, time2Day, time2Hours, time2Minutes, time2Seconds, 0);
+
+	    var deltaTime = (d1.getTime() - d2.getTime())/1000;
+
+	    var r = 6371e3;
+	    var la1 = latLngList[0].lat/180 * Math.PI;
+	    var la2 = latLngList[1].lat/180 * Math.PI;
+	    var dLa = (latLngList[0].lat - latLngList[1].lat)/180*Math.PI;
+	    var dLo = (latLngList[0].lng - latLngList[1].lng)/180*Math.PI;
+	    var a = Math.sin(dLa/2) * Math.sin(dLa/2) +
+		    Math.cos(la1) * Math.cos(la2) *
+		    Math.sin(dLo/2) * Math.sin(dLo/2);
+	    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	    var d = r * c;
+	    var speed = (d/deltaTime)*3.6;
+            infoWindow.setContent("<h1>Unit " + unit.device_id + "</h1><h4>Location</h4 ><p>Latitude: " + unit.latitude + "<br>Longitude: " + unit.longitude + "</p><h4>Sensors</h4 ><p>Temperature: " + unit.temp + "°C<br>Speed: " + speed.toFixed(2) + " km/h </p>" + unit.timestamp.split("T")[0] + " " + unit.timestamp.split("T")[1].split(".")[0] + "</div>");
         }
     }); 
 }
